@@ -83,6 +83,9 @@ class Geant4(CMakePackage):
     variant("tbb", default=False, description="Use TBB as a tasking backend", when="@11:")
     variant("timemory", default=False, description="Use TiMemory for profiling", when="@9.5:")
     variant("vtk", default=False, description="Enable VTK support", when="@11:")
+    variant(
+        "data", default=True, sticky=True, description="Enable downloading of the data directory"
+    )
 
     depends_on("cmake@3.16:", type="build", when="@11.0.0:")
     depends_on("cmake@3.8:", type="build", when="@10.6.0:")
@@ -109,7 +112,7 @@ class Geant4(CMakePackage):
         "11.2.2:11.2",
         "11.3:",
     ]:
-        depends_on("geant4-data@" + _vers, type="run", when="@" + _vers)
+        depends_on("geant4-data@" + _vers, type="run", when="+data @" + _vers)
 
     depends_on("expat")
     depends_on("zlib-api")
@@ -301,7 +304,8 @@ class Geant4(CMakePackage):
         # geant4-data's install directory to correctly set up the
         # Geant4Config.cmake values for Geant4_DATASETS .
         options.append(self.define("GEANT4_INSTALL_DATA", False))
-        options.append(self.define("GEANT4_INSTALL_DATADIR", self.datadir))
+        if spec.satisfies("+data"):
+            options.append(self.define("GEANT4_INSTALL_DATADIR", self.datadir))
 
         # Vecgeom
         if spec.satisfies("+vecgeom"):
