@@ -83,6 +83,31 @@ class Geant4(CMakePackage):
     variant("tbb", default=False, description="Use TBB as a tasking backend", when="@11:")
     variant("timemory", default=False, description="Use TiMemory for profiling", when="@9.5:")
     variant("vtk", default=False, description="Enable VTK support", when="@11:")
+
+    # For most users, obtaining the Geant4 data via Spack will be useful; the
+    # sticky, default-enabled `+data` variant ensures that this happens.
+    # Furthermore, if this variant is enabled, Spack will automatically set the
+    # necessary environment variables to ensure that the Geant4 code runs
+    # correctly.
+    #
+    # However, the Geant4 data is also large and it is, on many machines used
+    # in HEP, already available via e.g. CVMFS. In these cases, users can save
+    # network bandwidth by using externally supplied Geant4 data. This can be
+    # done in two different ways.
+    #
+    # The first is to declare the Geant4 data directories as externals. This
+    # can be done by manually adding them to the `packages.yaml` file, e.g.:
+    #
+    # ```
+    # g4radioactivedecay:
+    #   externals:
+    #   - spec: g4radioactivedecay@5.6
+    #     prefix: /cvmfs/geant4.cern.ch/
+    # ```
+    #
+    # Alternatively, the `~data` variant can be supplied; in this case, Spack
+    # will not attempt to use the `geant4-data` spec at all. It is then
+    # essential to set up the `GEANT4_INSTALL_DATADIR` variable manually.
     variant(
         "data", default=True, sticky=True, description="Enable downloading of the data directory"
     )
