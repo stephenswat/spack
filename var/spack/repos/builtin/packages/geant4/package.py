@@ -107,7 +107,9 @@ class Geant4(CMakePackage):
     #
     # Alternatively, the `~data` variant can be supplied; in this case, Spack
     # will not attempt to use the `geant4-data` spec at all. It is then
-    # essential to set up the `GEANT4_INSTALL_DATADIR` variable manually.
+    # essential to set up the `GEANT4_DATA_DIR` environment variable manually
+    # at runtime; see the Geant4 installation guide for more information:
+    # https://geant4-userdoc.web.cern.ch/UsersGuides/InstallationGuide/html/postinstall.html
     variant(
         "data", default=True, sticky=True, description="Enable downloading of the data directory"
     )
