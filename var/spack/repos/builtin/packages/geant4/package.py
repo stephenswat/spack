@@ -102,8 +102,11 @@ class Geant4(CMakePackage):
     # g4radioactivedecay:
     #   externals:
     #   - spec: g4radioactivedecay@5.6
-    #     prefix: /cvmfs/geant4.cern.ch/
+    #     prefix: <PREFIX>
     # ```
+    #
+    # Where <PREFIX> is a path such that <PREFIX>/share/data/<DATASET><VERSION>
+    # exists.
     #
     # Alternatively, the `~data` variant can be supplied; in this case, Spack
     # will not attempt to use the `geant4-data` spec at all. It is then
