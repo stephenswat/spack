@@ -103,6 +103,7 @@ class Geant4(CMakePackage):
     #   externals:
     #   - spec: g4radioactivedecay@5.6
     #     prefix: <PREFIX>
+    #     buildable: False
     # ```
     #
     # Where <PREFIX> is a path such that <PREFIX>/share/data/<DATASET><VERSION>
