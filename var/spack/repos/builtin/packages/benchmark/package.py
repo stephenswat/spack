@@ -63,6 +63,7 @@ class Benchmark(CMakePackage):
     def cmake_args(self):
         # No need for testing for the install
         args = [
+            self.define("BUILD_SHARED_LIBS", True),
             self.define("BENCHMARK_ENABLE_TESTING", False),
             self.define_from_variant("BENCHMARK_ENABLE_LIBPFM", "performance_counters"),
         ]
