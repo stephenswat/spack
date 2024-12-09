@@ -25,6 +25,7 @@ class Covfie(CMakePackage, CudaPackage):
 
     depends_on("cxx", type="build")  # generated
 
+    depends_on("cmake@3.21:", type="build", when="@0.11:")
     depends_on("cmake@3.18:", type="build")
 
     def cmake_args(self):
