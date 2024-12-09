@@ -25,15 +25,12 @@ class Covfie(CMakePackage, CudaPackage):
 
     depends_on("cxx", type="build")  # generated
 
-    variant("concepts", default=False, description="Enforce C++20 concepts")
-
     depends_on("cmake@3.18:", type="build")
 
     def cmake_args(self):
         args = [
             self.define("COVFIE_PLATFORM_CPU", True),
             self.define_from_variant("COVFIE_PLATFORM_CUDA", "cuda"),
-            self.define_from_variant("COVFIE_REQUIRE_CXX20", "concepts"),
             self.define("COVFIE_QUIET", True),
         ]
 

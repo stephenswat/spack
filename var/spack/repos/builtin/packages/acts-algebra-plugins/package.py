@@ -23,13 +23,14 @@ class ActsAlgebraPlugins(CMakePackage):
 
     depends_on("cxx", type="build")  # generated
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        description="C++ standard used",
+    _cxxstd_values = (
+        conditional("17", when="@:0.25"),
+        conditional("20", when="@0:"),
+        conditional("23", when="@0:"),
     )
+    _cxxstd_common = {"values": _cxxstd_values, "multi": False, "description": "C++ standard used"}
+    variant("cxxstd", default="17", when="@:0.25", **_cxxstd_common)
+    variant("cxxstd", default="20", when="@0.26:", **_cxxstd_common)
     variant("eigen", default=False, description="Enables the Eigen plugin")
     variant("smatrix", default=False, description="Enables the SMatrix plugin")
     variant("vecmem", default=False, description="Enables the vecmem plugin")

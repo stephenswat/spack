@@ -430,6 +430,8 @@ class Acts(CMakePackage, CudaPackage):
     conflicts("%gcc@:9", when="cxxstd=20")
     # See https://github.com/acts-project/acts/pull/3512
     conflicts("^boost@1.85.0")
+    # See https://github.com/acts-project/acts/pull/3921
+    conflicts("^edm4hep@0.99:", when="@:37")
 
     def cmake_args(self):
         spec = self.spec
